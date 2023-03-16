@@ -7,11 +7,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<script src="https://cdn.tailwindcss.com"></script>
-	<script src="//unpkg.com/alpinejs" defer></script>
+	<script src="alpine.js" defer></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css">
 	<script src="custom.js"></script>
+	<style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 
 <body>
@@ -81,7 +92,7 @@
 				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
 					Quantity
 				</label>
-				<input x-model="quantity"
+				<input type="number" x-model="quantity"
 					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 					id="grid-last-name" type="text" placeholder="">
 					<span class="text-red-700" x-text="error.quantity"></span>
@@ -99,7 +110,7 @@
 				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
 					Amount
 				</label>
-				<input x-model="amount"
+				<input type="number" x-model="amount"
 					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 					id="grid-last-name" type="text" placeholder="">
 					<span class="text-red-700" x-text="error.amount"></span>
@@ -112,7 +123,7 @@
 			</div>
 
 		</div>
-		<template x-for="(product,index) in productData" :key="index">
+		<template x-for="(array,index) in quantityArray" :key="index">
 			<div class="flex flex-wrap -mx-3 mb-6">
 				<div class="w-full md:w-1/4 px-3">
 					<input x-model="quantityArray[index]" @change="changeValue($event,index)"
@@ -121,17 +132,19 @@
 						<span class="text-red-700" x-text="quantityError[index]"></span>
 				</div>
 				<div class="w-full md:w-1/4 px-3">
-					<input x-model="productNameArray[index]" @change="updateTotal"
+					<input x-model="productNameArray[index]" @change="changeValue($event,index)"
 						class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-						id="grid-last-name" type="text" placeholder="">
+						id="grid-last-name" type="text" placeholder="" name="productName">
+						<span class="text-red-700" x-text="productNameError[index]"></span>
 				</div>
 				<div class="w-full md:w-1/4 px-3">
-					<input x-model="amountArray[index]" @change="updateTotal"
+					<input x-model="amountArray[index]" @change="changeValue($event,index)"
 						class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-						id="grid-last-name" type="text" placeholder="">
+						id="grid-last-name" type="text" placeholder="" name="amount">
+						<span class="text-red-700" x-text="amountError[index]"></span>
 				</div>
 				<div class="w-full md:w-1/4 px-3 mt-1 text-center">
-					<button type="button" @click="removeProduct(product)"
+					<button type="button" @click="removeProduct(index)"
 						class="bg-orange-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
 						Delete
 					</button>
@@ -170,7 +183,7 @@
 				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
 					Cash
 				</label>
-				<input x-model="cash"
+				<input x-model="cash" @change="changeCash"
 					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 					id="grid-last-name" type="text" placeholder="">
 			</div>
@@ -178,7 +191,7 @@
 				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
 					Change
 				</label>
-				<input x-model="cash"
+				<input disabled x-model="change"
 					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 					id="grid-last-name" type="text" placeholder="">
 			</div>
