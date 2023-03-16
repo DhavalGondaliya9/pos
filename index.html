@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="//unpkg.com/alpinejs" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css">
+</head>
+
+<body>
+    <div class="mt-5">
+        <h1 class="text-center text-3xl">Pos Billing</h1>
+    </div>
+	<form class="m-10">
+		<div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/3 px-3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+					Title
+				</label>
+				<input
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+					id="grid-last-name" type="text" placeholder="">
+			</div>
+			<div class="w-full md:w-1/3 px-3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+					Invoice
+				</label>
+				<input
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+					id="grid-last-name" type="text" placeholder="">
+			</div>
+			<div class="w-full md:w-1/3 px-3">
+				<div
+				x-data
+				x-init="flatpickr($refs.datetimewidget, {wrap: true, enableTime: true, dateFormat: 'M j, Y h:i K'});"
+				x-ref="datetimewidget"
+				class="flatpickr container mx-auto col-span-6 sm:col-span-6"
+			>
+				<label for="datetime" class="flex-grow  block font-medium text-sm text-gray-700 mb-1">Date and Time</label>
+				<div class="flex align-middle align-content-center">
+					<input
+						x-ref="datetime"
+						type="text"
+						id="datetime"
+						data-input
+						placeholder="Select.."
+						class="block w-full px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-l-md shadow-sm"
+					>
+					<a class="h-11 w-10 input-button cursor-pointer rounded-r-md bg-transparent border-gray-300 border-t border-b border-r"
+						title="clear" data-clear >
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mt-2 ml-1" viewBox="0 0 20 20" fill="#c53030">
+							<path fill-rule="evenodd"
+								  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+								  clip-rule="evenodd"/>
+						</svg>
+					</a>
+				</div>
+			
+			</div>
+			</div>
+
+		</div>
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full px-3 md:w-1/3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+					Address
+				</label>
+				<textarea
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+					id="grid-password" type="password"> 
+				</textarea>
+			</div>
+		</div>
+		<div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/4 px-3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+					Quantity
+				</label>
+				<input
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+					id="grid-last-name" type="text" placeholder="">
+			</div>
+			<div class="w-full md:w-1/4 px-3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+					Product Name
+				</label>
+				<input
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+					id="grid-last-name" type="text" placeholder="">
+			</div>
+			<div class="w-full md:w-1/4 px-3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+					Amount
+				</label>
+				<input
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+					id="grid-last-name" type="text" placeholder="">
+			</div>
+            <div class="w-full md:w-1/4 px-3 mt-6 text-center">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Add
+                  </button>
+            </div>
+
+		</div>
+		<div class="flex flex-wrap -mx-3 mb-6 grid-cols-12">
+			<div class="w-full px-3 md:w-1/3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+					Tax
+				</label>
+				<input
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+					id="grid-last-name" type="text" placeholder="">
+			</div>
+			<div class="w-full md:w-1/3 px-3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+					Cash
+				</label>
+				<input
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+					id="grid-last-name" type="text" placeholder="">
+			</div>
+			<div class="w-full md:w-1/3 px-3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+					Change
+				</label>
+				<input
+					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+					id="grid-last-name" type="text" placeholder="">
+			</div>
+		</div>
+		<div class="flex flex-wrap -mx-3 mb-6">
+			<div class="w-full md:w-1/2 px-3">
+				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+					Footer
+				</label>
+				<textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+				id="grid-last-name"></textarea>
+			</div>
+		</div>
+	</form>
+    <div class="w-full px-3 mt-6 mb-6 text-center">
+        <button class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Generate PDF  
+          </button>
+    </div>
+</body>
+
+</html>
