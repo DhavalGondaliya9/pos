@@ -13,210 +13,286 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css">
 	<script src="custom.js"></script>
 	<style>
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
 
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-    </style>
+		input[type="number"] {
+			-moz-appearance: textfield;
+		}
+	</style>
+	<style>
+		@page {
+			size: auto;
+			margin: 3mm;
+		}
+	</style>
 </head>
 
 <body>
-	<div class="mt-5">
-		<h1 class="text-center text-3xl">Pos Billing</h1>
-	</div>
-	<form x-data="displayProducts" class="m-10">
-		<div class="flex flex-wrap -mx-3 mb-6">
-			<div class="w-full md:w-1/3 px-3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-					Title
-				</label>
-				<input x-model="title"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-last-name" type="text" placeholder="">
-					<span class="text-red-700" x-text="error.title"></span>
+	<div x-data="displayProducts" class="main-contain">
+		<div id="pos-billing">
+			<div class="mt-5">
+				<h1 class="text-center text-3xl">Pos Billing</h1>
 			</div>
-			<div class="w-full md:w-1/3 px-3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-					Invoice
-				</label>
-				<input x-model="invoice"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-last-name" type="text" placeholder="">
-					<span class="text-red-700" x-text="error.invoice"></span>
-			</div>
-			<div class="w-full md:w-1/3 px-3">
-				<div x-data
-					x-init="flatpickr($refs.datetimewidget, {wrap: true, enableTime: true, dateFormat: 'M j, Y h:i K'});"
-					x-ref="datetimewidget" class="flatpickr container mx-auto col-span-6 sm:col-span-6">
-					<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-						Date and Time
-					</label>
-					<div class="flex align-middle align-content-center">
-						<input x-model="dateTime" x-ref="datetime" type="text" id="datetime" data-input
-							placeholder="Select.."
-							class="block w-full px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-l-md shadow-sm">
-						<a class="h-11 w-10 input-button cursor-pointer rounded-r-md bg-transparent border-gray-300 border-t border-b border-r"
-							title="clear" data-clear>
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mt-2 ml-1" viewBox="0 0 20 20"
-								fill="#c53030">
-								<path fill-rule="evenodd"
-									d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-									clip-rule="evenodd" />
-							</svg>
-						</a>
+			<form class="m-10">
+				<div class="flex flex-wrap -mx-3 mb-6">
+					<div class="w-full md:w-1/3 px-3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-last-name">
+							Title
+						</label>
+						<input x-model="title"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-last-name" type="text" placeholder="">
+						<span class="text-red-700" x-text="error.title"></span>
 					</div>
-					<span class="text-red-700" x-text="error.dateTime"></span>
-				</div>
-			</div>
+					<div class="w-full md:w-1/3 px-3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-last-name">
+							Invoice
+						</label>
+						<input x-model="invoice"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-last-name" type="text" placeholder="">
+						<span class="text-red-700" x-text="error.invoice"></span>
+					</div>
+					<div class="w-full md:w-1/3 px-3">
+						<div x-data
+							x-init="flatpickr($refs.datetimewidget, {wrap: true, enableTime: true, dateFormat: 'M j, Y h:i K'});"
+							x-ref="datetimewidget" class="flatpickr container mx-auto col-span-6 sm:col-span-6">
+							<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+								for="grid-last-name">
+								Date and Time
+							</label>
+							<div class="flex align-middle align-content-center">
+								<input x-model="dateTime" x-ref="datetime" type="text" id="datetime" data-input
+									placeholder="Select.."
+									class="block w-full px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-l-md shadow-sm">
+								<a class="h-11 w-10 input-button cursor-pointer rounded-r-md bg-transparent border-gray-300 border-t border-b border-r"
+									title="clear" data-clear>
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mt-2 ml-1"
+										viewBox="0 0 20 20" fill="#c53030">
+										<path fill-rule="evenodd"
+											d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+											clip-rule="evenodd" />
+									</svg>
+								</a>
+							</div>
+							<span class="text-red-700" x-text="error.dateTime"></span>
+						</div>
+					</div>
 
-		</div>
-		<div class="flex flex-wrap -mx-3 mb-6">
-			<div class="w-full px-3 md:w-1/3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-					Address
-				</label>
-				<textarea x-model="address"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-password" type="password">
-				</textarea>
-				<span class="text-red-700" x-text="error.address"></span>
-			</div>
-		</div>
-		<div class="flex flex-wrap -mx-3 mb-6">
-			<div class="w-full md:w-1/4 px-3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-					Quantity
-				</label>
-				<input type="number" x-model="quantity"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-last-name" type="text" placeholder="">
-					<span class="text-red-700" x-text="error.quantity"></span>
-			</div>
-			<div class="w-full md:w-1/4 px-3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-					Product Name
-				</label>
-				<input x-model="productName"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-last-name" type="text" placeholder="">
-					<span class="text-red-700" x-text="error.productName"></span>
-			</div>
-			<div class="w-full md:w-1/4 px-3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-					Amount
-				</label>
-				<input type="number" x-model="amount"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-last-name" type="text" placeholder="">
-					<span class="text-red-700" x-text="error.amount"></span>
-			</div>
-			<div class="w-full md:w-1/4 px-3 mt-6 text-center">
-				<button type="button" @click="addProduct()"
-					class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-					Add
-				</button>
-			</div>
+				</div>
+				<div class="flex flex-wrap -mx-3 mb-6">
+					<div class="w-full px-3 md:w-1/3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-password">
+							Address
+						</label>
+						<textarea x-model="address"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-password" type="password">
+					</textarea>
+						<span class="text-red-700" x-text="error.address"></span>
+					</div>
+				</div>
+				
+				<template x-for="(array,index) in quantityArray" :key="index">
+					<div class="flex flex-wrap -mx-3 mb-6">
+						<div class="w-full md:w-1/4 px-3">
+							<input x-model="quantityArray[index]" @change="changeValue($event,index)"
+								class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+								id="grid-last-name" type="number" placeholder="" name="quantity">
+							<span class="text-red-700" x-text="quantityError[index]"></span>
+						</div>
+						<div class="w-full md:w-1/4 px-3">
+							<input x-model="productNameArray[index]" @change="changeValue($event,index)"
+								class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+								id="grid-last-name" type="text" placeholder="" name="productName">
+							<span class="text-red-700" x-text="productNameError[index]"></span>
+						</div>
+						<div class="w-full md:w-1/4 px-3">
+							<input x-model="amountArray[index]" @change="changeValue($event,index)"
+								class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+								id="grid-last-name" type="number" placeholder="" name="amount">
+							<span class="text-red-700" x-text="amountError[index]"></span>
+						</div>
+						<div class="w-full md:w-1/4 px-3 mt-1 text-center">
+							<button type="button" @click="removeProduct(index)"
+								class="bg-orange-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+								-
+							</button>
+						</div>
 
-		</div>
-		<template x-for="(array,index) in quantityArray" :key="index">
-			<div class="flex flex-wrap -mx-3 mb-6">
-				<div class="w-full md:w-1/4 px-3">
-					<input x-model="quantityArray[index]" @change="changeValue($event,index)"
-						class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-						id="grid-last-name" type="text" placeholder="" name="quantity">
-						<span class="text-red-700" x-text="quantityError[index]"></span>
+					</div>
+				</template>
+				<div class="flex flex-wrap -mx-3 mb-6">
+					<div class="w-full md:w-1/4 px-3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-last-name">
+							Quantity
+						</label>
+						<input x-model="quantity"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-last-name" type="number" placeholder="">
+						<span class="text-red-700" x-text="error.quantity"></span>
+					</div>
+					<div class="w-full md:w-1/4 px-3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-last-name">
+							Product Name
+						</label>
+						<input x-model="productName"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-last-name" type="text" placeholder="">
+						<span class="text-red-700" x-text="error.productName"></span>
+					</div>
+					<div class="w-full md:w-1/4 px-3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-last-name">
+							Amount
+						</label>
+						<input x-model="amount"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-last-name" type="number" placeholder="">
+						<span class="text-red-700" x-text="error.amount"></span>
+					</div>
+					<div class="w-full md:w-1/4 px-3 mt-6 text-center">
+						<button type="button" @click="addProduct()"
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+							+
+						</button>
+					</div>
+
 				</div>
-				<div class="w-full md:w-1/4 px-3">
-					<input x-model="productNameArray[index]" @change="changeValue($event,index)"
-						class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-						id="grid-last-name" type="text" placeholder="" name="productName">
-						<span class="text-red-700" x-text="productNameError[index]"></span>
+				<div class="flex flex-wrap -mx-3 mb-6 grid-cols-2" style="width:100%">
+					<div class="px-5 mt-5" style="width: inherit">
+						<div class="py-4 rounded-md shadow-lg">
+							<div class="px-4 flex justify-between">
+								<span class="font-semibold text-sm">Subtotal</span>
+								<span x-text="subtotal" class="font-bold sub-total" id="subtotal">$0.00</span>
+							</div>
+							<div class="px-4 flex justify-between">
+								<span class="font-semibold text-sm">Tax</span>
+								<span x-text="totalTax" class="font-bold" id="sales-tax"> $0.00</span>
+							</div>
+							<div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
+								<span class="font-semibold text-2xl">Total</span>
+								<span x-text="grandTotal" class="font-bold text-2xl total-price" id="total">$0.00</span>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="w-full md:w-1/4 px-3">
-					<input x-model="amountArray[index]" @change="changeValue($event,index)"
-						class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-						id="grid-last-name" type="text" placeholder="" name="amount">
-						<span class="text-red-700" x-text="amountError[index]"></span>
+				<div class="flex flex-wrap -mx-3 mb-6 grid-cols-12">
+					<div class="w-full px-3 md:w-1/3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-last-name">
+							Tax (%)
+						</label>
+						<input x-model="tax" @change="changeTax($event)" min="1" max="100"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-last-name" type="text" placeholder="">
+						<span class="text-red-700" x-text="error.tax"></span>
+					</div>
+					<div class="w-full md:w-1/3 px-3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-last-name">
+							Cash
+						</label>
+						<input x-model="cash" @change="changeCash"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-last-name" type="text" placeholder="">
+					</div>
+					<div class="w-full md:w-1/3 px-3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-last-name">
+							Change
+						</label>
+						<input disabled x-model="change"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-last-name" type="text" placeholder="">
+					</div>
 				</div>
-				<div class="w-full md:w-1/4 px-3 mt-1 text-center">
-					<button type="button" @click="removeProduct(index)"
-						class="bg-orange-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-						Delete
+				<div class="flex flex-wrap -mx-3 mb-6">
+					<div class="w-full md:w-1/2 px-3">
+						<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							for="grid-last-name">
+							Footer
+						</label>
+						<textarea x-model="footer"
+							class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+							id="grid-last-name"></textarea>
+					</div>
+				</div>
+
+				<div class="w-full px-3 mt-6 mb-6 text-center">
+					<button type="button" @click="generatePDF"
+						class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+						Generate PDF
 					</button>
 				</div>
+			</form>
+		</div>
 
-			</div>
-		</template>
-		<div class="flex flex-wrap -mx-3 mb-6 grid-cols-2" style="width:100%">
-			<div class="px-5 mt-5" style="width: inherit">
-				<div class="py-4 rounded-md shadow-lg">
-					<div class="px-4 flex justify-between">
-						<span class="font-semibold text-sm">Subtotal</span>
-						<span x-text="subtotal" class="font-bold sub-total" id="subtotal">$0.00</span>
-					</div>
-					<div class="px-4 flex justify-between">
-						<span class="font-semibold text-sm">Tax</span>
-						<span x-text="totalTax" class="font-bold" id="sales-tax"> $0.00</span>
-					</div>
-					<div class="border-t-2 mt-3 py-2 px-4 flex items-center justify-between">
-						<span class="font-semibold text-2xl">Total</span>
-						<span x-text="grandTotal" class="font-bold text-2xl total-price" id="total">$0.00</span>
-					</div>
-				</div>
-			</div>
+		<div id="print-pos-billing" class="w-full" style="display: none;">
+			<h1 class="font-bold text-center text-3xl" x-text="title"></h1>
+			<p class="text-center mt-4" x-text="address"></p>
+			<table class="table-auto w-full mt-4">
+				<tbody>
+					<tr class="w-full">
+						<td class="md:w-1/3 text-left">Invoice : <span x-text="invoice"></span></td>
+						<td class="md:w-1/3 text-right" x-text="dateTime"></td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table-auto w-full mt-4">
+				<tbody>
+					<template x-for="(array,index) in quantityArray" :key="index">
+						<tr class="w-full">
+							<td class="md:w-1/3 text-left" x-text="quantityArray[index]"></td>
+							<td class="md:w-1/3 text-center" x-text="productNameArray[index]"></td>
+							<td class="md:w-1/3 text-right" x-text="amountArray[index]"></td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+			<table class="table-auto w-full mt-4 border-t-2">
+				<tbody>
+					<tr class="w-full">
+						<td class="md:w-1/2 text-right">Subtotal</td>
+						<td class="md:w-1/2 text-right" x-text="subtotal"></td>
+					</tr>
+					<tr class="w-full">
+						<td class="md:w-1/2 text-right">Tax</td>
+						<td class="md:w-1/2 text-right" x-text="totalTax"></td>
+					</tr>
+					<tr class="w-full border-t-2">
+						<td class="md:w-1/2 text-right">Grand Total</td>
+						<td class="md:w-1/2 text-right" x-text="grandTotal"></td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table-auto w-full mt-4">
+				<tbody>
+					<tr class="w-full">
+						<td class="md:w-1/2 text-right">Cash</td>
+						<td class="md:w-1/2 text-right" x-text="cash"></td>
+					</tr>
+					<tr class="w-full">
+						<td class="md:w-1/2 text-right">Change</td>
+						<td class="md:w-1/2 text-right" x-text="change"></td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="text-center mt-6" x-text="footer">
+				
+			</p>
 		</div>
-		<div class="flex flex-wrap -mx-3 mb-6 grid-cols-12">
-			<div class="w-full px-3 md:w-1/3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-					Tax (%)
-				</label>
-				<input x-model="tax" @change="updateTotal"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-last-name" type="text" placeholder="">
-			</div>
-			<div class="w-full md:w-1/3 px-3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-					Cash
-				</label>
-				<input x-model="cash" @change="changeCash"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-last-name" type="text" placeholder="">
-			</div>
-			<div class="w-full md:w-1/3 px-3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-					Change
-				</label>
-				<input disabled x-model="change"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-last-name" type="text" placeholder="">
-			</div>
-		</div>
-		<div class="flex flex-wrap -mx-3 mb-6">
-			<div class="w-full md:w-1/2 px-3">
-				<label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-					Footer
-				</label>
-				<textarea x-model="footer"
-					class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-					id="grid-last-name"></textarea>
-			</div>
-		</div>
-		<div id="my-html" style="display:none">
-			<h1>This is the custom HTML to print</h1>
-			<p>This HTML will be printed when the button is clicked</p>
-		  </div>
-		<div class="w-full px-3 mt-6 mb-6 text-center">
-			<button type="button" @click="generatePDF"
-				class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-				Generate PDF
-			</button>
-		</div>
-	</form>
+
+	</div>
 </body>
 
 </html>
