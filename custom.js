@@ -39,15 +39,16 @@ function displayProducts() {
             this.quantity = '';
             this.productName = '';
             this.amount = '';
+
             this.updateTotal();
         },
 
         changeTax(event) {
-
             if(event.target.value > 100){
                 this.error.tax = "Tax maximum 100%";
                 this.tax = '';
             }
+
             this.updateTotal();
         },
 
@@ -185,7 +186,6 @@ function displayProducts() {
                 window.scrollTo(0, 0);
                 return false;
             }
-            document.title = '';
 
             document.getElementById("pos-billing").style.display = "none";
             document.getElementById("print-pos-billing").style.display = "block";
