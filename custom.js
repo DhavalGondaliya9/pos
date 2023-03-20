@@ -187,7 +187,7 @@ function displayProducts() {
                 window.scrollTo(0, 0);
                 return false;
             }
-
+            document.title = this.title;
             document.getElementById("pos-billing").style.display = "none";
             document.getElementById("print-pos-billing").style.display = "block";
 
