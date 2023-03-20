@@ -44,6 +44,7 @@ function displayProducts() {
         },
 
         changeTax(event) {
+            this.error.tax = '';
             if(event.target.value > 100){
                 this.error.tax = "Tax maximum 100%";
                 this.tax = '';
