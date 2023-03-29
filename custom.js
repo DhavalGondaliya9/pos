@@ -16,7 +16,6 @@ function displayProducts() {
         cash: localStorage.getItem('cash'),
         change: '',
         footer: localStorage.getItem('footer'),
-        productData: [],
         quantityArray: [],
         productNameArray: [],
         amountArray: [],
@@ -204,36 +203,40 @@ function displayProducts() {
             document.getElementById("print-pos-billing").style.display = "none";
         },
 
-        exportLocalStorage(type) {
-            let data = {};
-            let filename = '';
+        sampleLocalStorage() {
+            const result = window.confirm("Are you sure you want to import sample data?");
 
-            if (type == 'export') {
-                const keys = Object.keys(localStorage);
-                const values = keys.map(key => localStorage.getItem(key));
-                keys.forEach((key, i) => data[key] = values[i]);
-            
-                filename = 'local-storage-data.json';
-            }
-
-            if (type == 'sample') {
-                data = {
-                    title     : "The Lone Pine",
-                    invoice   : "08000008",
-                    dateTime  : "Mar 31, 2023 12:00 PM",
-                    address   : "43 Manchester Road, 12480 Brisbane, Australia",
-                    tax       : "18",
-                    cash      : "71000",
-                    footer    : "Bring this bill back within the next 10 days and get 15% discount on that day's food bill...",
-                    products  : JSON.stringify([{quantity : 2, productName : 'phone', amount : 10000},{quantity : 4, productName : 'laptop', amount : 50000}])
+            if (result) {
+                let data = {
+                    title: "The Lone Pine",
+                    invoice: "08000008",
+                    dateTime: "Mar 31, 2023 12:00 PM",
+                    address: "43 Manchester Road, 12480 Brisbane, Australia",
+                    tax: "18",
+                    cash: "71000",
+                    footer: "Bring this bill back within the next 10 days and get 15% discount on that day's food bill...",
+                    products: JSON.stringify([{ quantity: 2, productName: 'phone', amount: 10000 }, { quantity: 4, productName: 'laptop', amount: 50000 }])
                 };
-              
-                filename = 'local-storage-sample-data.json';
+
+                Object.entries(data).forEach(([key, value]) => localStorage.setItem(key, value));
+
+                window.location.reload();
             }
-            
+        },
+
+        exportLocalStorage() {
+            const data = {};
+
+            const keys = Object.keys(localStorage);
+            const values = keys.map(key => localStorage.getItem(key));
+
+            keys.forEach((key, i) => data[key] = values[i]);
+
+            const filename = 'local-storage-data.json';      
             const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
+
             link.href = url;
             link.download = filename;
           
