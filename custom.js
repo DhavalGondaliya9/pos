@@ -2,21 +2,20 @@ function displayProducts() {
     return {
         error: {},
         errors: false,
-        title: '',
-        invoice: '',
-        dateTime: '',
-        address: '',
+        title: localStorage.getItem('title'),
+        invoice: localStorage.getItem('invoice'),
+        dateTime: localStorage.getItem('dateTime'),
+        address: localStorage.getItem('address'),
         quantity: '',
         productName: '',
         amount: '',
         subtotal: 0,
-        tax: '',
+        tax: localStorage.getItem('tax'),
         totalTax: 0,
         grandTotal: 0,
-        cash: '',
+        cash: localStorage.getItem('cash'),
         change: '',
-        footer: '',
-        productData: [],
+        footer: localStorage.getItem('footer'),
         quantityArray: [],
         productNameArray: [],
         amountArray: [],
@@ -35,6 +34,8 @@ function displayProducts() {
             this.quantityArray[length] = Math.round(this.quantity);
             this.productNameArray[length] = this.productName;
             this.amountArray[length] = this.amount;
+
+            this.addLocalStorageProducts();
 
             this.quantity = '';
             this.productName = '';
@@ -85,8 +86,10 @@ function displayProducts() {
             this.productNameArray.splice(this.productNameArray.indexOf(index), 1);
             this.amountArray.splice(this.amountArray.indexOf(index), 1);
 
+            this.addLocalStorageProducts();
             this.updateTotal();
         },
+
         changeCash() {
 
             if (this.cash > 0) {
@@ -94,10 +97,11 @@ function displayProducts() {
             }
 
         },
+
         changeValue() {
 
             this.productArrayValidation();
-
+            this.addLocalStorageProducts();
             this.updateTotal();
         },
 
@@ -128,6 +132,7 @@ function displayProducts() {
                     $this.errors = true;
                     $this.quantityError[index] = 'Quantity field required';
                 } else {
+
                     if ($this.quantityArray[index] <= 0) {
                         $this.errors = true;
                         $this.quantityError[index] = 'Quantity cannot be negative or 0';
@@ -165,23 +170,24 @@ function displayProducts() {
                 this.productValidation();
             }
 
-            if (this.title == "") {
+            if (this.title == '' || this.title == null) {
                 this.error.title = 'Title field required';
             }
 
-            if (this.invoice == "") {
+            if (this.invoice == "" || this.invoice == null) {
                 this.error.invoice = 'Invoice field required';
             }
 
-            if (this.dateTime == "") {
+            if (this.dateTime == "" || this.dateTime == null) {
                 this.error.dateTime = 'Date and Time field required';
             }
 
-            if (this.address == "") {
+            if (this.address == "" || this.address == null) {
                 this.error.address = 'Address field required';
             }
 
             this.productArrayValidation();
+
             if (Object.keys(this.error).length > 0 || this.errors) {
                 this.errors = true;
                 window.scrollTo(0, 0);
@@ -196,5 +202,97 @@ function displayProducts() {
             document.getElementById("pos-billing").style.display = "block";
             document.getElementById("print-pos-billing").style.display = "none";
         },
+
+        sampleLocalStorage() {
+            const result = window.confirm("Are you sure you want to import sample data?");
+
+            if (result) {
+                let data = {
+                    title: "The Lone Pine",
+                    invoice: "08000008",
+                    dateTime: "Mar 31, 2023 12:00 PM",
+                    address: "43 Manchester Road, 12480 Brisbane, Australia",
+                    tax: "18",
+                    cash: "71000",
+                    footer: "Bring this bill back within the next 10 days and get 15% discount on that day's food bill...",
+                    products: JSON.stringify([{ quantity: 2, productName: 'phone', amount: 10000 }, { quantity: 4, productName: 'laptop', amount: 50000 }])
+                };
+
+                Object.entries(data).forEach(([key, value]) => localStorage.setItem(key, value));
+
+                window.location.reload();
+            }
+        },
+
+        exportLocalStorage() {
+            const data = {};
+
+            const keys = Object.keys(localStorage);
+            const values = keys.map(key => localStorage.getItem(key));
+
+            keys.forEach((key, i) => data[key] = values[i]);
+
+            const filename = 'local-storage-data.json';      
+            const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+
+            link.href = url;
+            link.download = filename;
+          
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        },
+
+        importLocalStorage(event) {
+            const file = event.target.files[0];
+            if (!file.name.endsWith(".json")) {
+                alert('Only json file accepted');
+                event.target.value = '';
+                return;
+            }
+
+            if (!file) return;
+
+            const result = window.confirm("Are you sure you want to import this file?");
+            if (result) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const data = JSON.parse(reader.result);
+                    Object.entries(data).forEach(([key, value]) => localStorage.setItem(key, value));
+                    alert('Data imported successfully');
+                    window.location.reload();
+                };
+                reader.readAsText(file);
+            }
+            event.target.value = '';
+        },
+        setLocalStorageProducts() {
+            let products = JSON.parse(localStorage.getItem('products'));
+            let $this = this;
+            if (products != null) {
+                products.forEach(function(product,index) {
+                    $this.quantityArray[index] = product.quantity;
+                    $this.productNameArray[index] = product.productName;
+                    $this.amountArray[index] = product.amount;
+                });
+                this.updateTotal();
+            }
+        },
+
+        addLocalStorageProducts() {
+            let productArray = [];
+            let length = this.quantityArray.length;
+            for (var i = 0; i < length; i++) {
+                productArray[i] = {};
+                productArray[i].quantity    = this.quantityArray[i];
+                productArray[i].productName = this.productNameArray[i];
+                productArray[i].amount      = this.amountArray[i]; 
+            }
+
+            localStorage.setItem('products', JSON.stringify(productArray));
+        }
     }
 }
